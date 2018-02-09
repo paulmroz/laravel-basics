@@ -9,12 +9,14 @@
           @include('posts.post')
         @endforeach  
 
-          <nav class="blog-pagination">
-            <a class="btn btn-outline-primary" href="#">Older</a>
-            <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-          </nav>
+        
+        <div class="row">
+		    <div class="col-md-6 col-md-offset-8">
+		    	{{$posts->appends(Request::except('page'))->links()}}
+		    </div>
+		</div>
 
-        </div><!-- /.blog-main -->
+        </div>
   @endsection
 
 

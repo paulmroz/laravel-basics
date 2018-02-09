@@ -13,3 +13,4 @@
             </p>
             {{$post->body}}
 </div><!-- /.blog-post -->
+

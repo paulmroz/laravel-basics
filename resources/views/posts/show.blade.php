@@ -30,6 +30,15 @@
 		</div>
 		<hr>
 		{{-- Add a comment  --}}
+		@if(!Auth::check())
+		<div class="col-sm-13 blog-main">
+			<div class="card-block">
+			<h1>Sorry, You need to be registered to comment post :/.</h1>
+			</div>
+		</div>
+		@endif
+
+		@if(Auth::check())
 		<div class="col-sm-13 blog-main">
 			<div class="card-block">
 				<form method="POST" action="/posts/{{$post->id}}/comments">
@@ -45,6 +54,7 @@
 				@include('layouts.errors')
 			</div>
 		</div>
+		@endif
 	</div>
 
 

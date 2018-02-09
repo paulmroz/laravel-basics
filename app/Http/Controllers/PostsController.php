@@ -19,9 +19,6 @@ class PostsController extends Controller
 
 	public function index()
 	{
-		/*$posts = Post::latest()
-			->filter(request(['month', 'year']))
-			->get();*/
 
 		$posts = Post::latest();
 
@@ -31,7 +28,7 @@ class PostsController extends Controller
 
 		} 
 		
-		$posts = $posts->get();
+		$posts = $posts->paginate(5);
 
 		return view('posts.index', compact('posts'));
 	}
@@ -78,5 +75,6 @@ class PostsController extends Controller
 		//redirect to homepage
 		return redirect('/');
 	}
+	
 
 }
