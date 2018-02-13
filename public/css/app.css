@@ -35,8 +35,8 @@ h6,
   position: absolute;
   right: 20px;
   z-index: 10;
-  -webkit-animation: flash-message 4s forwards;
-          animation: flash-message 4s forwards;
+  -webkit-animation: flash-message 15s forwards;
+          animation: flash-message 15s forwards;
 }
 
 @-webkit-keyframes flash-message {

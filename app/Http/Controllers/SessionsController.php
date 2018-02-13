@@ -37,6 +37,8 @@ class SessionsController extends Controller
     {
     	auth()->logout();
 
+        session()->flash('message', 'You has been succesfully logout.');
+
     	return redirect()->home();
     }
 

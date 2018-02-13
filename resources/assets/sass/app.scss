@@ -28,7 +28,7 @@ h6, .h6 {
     position: absolute;
     right: 20px;
     z-index: 10;
-    animation: flash-message 4s forwards;
+    animation: flash-message 15s forwards;
 }
 
 @keyframes flash-message {

@@ -79,4 +79,27 @@ class PostsController extends Controller
 		return redirect('/');
 	}
 
+	public function destroy(Post $post)
+	{	
+		if ($post->user->id == auth()->id()) {
+			$post->find($post->id);
+			$post->delete();
+
+			session()->flash('message', 'Your post has been successfully deleted');
+		}
+		
+		return redirect()->back();
+	}
+
+	public function userposts(){
+		try {
+			
+		$posts = Post::where('user_id',auth()->id())->get();	
+
+		return view('posts.userposts', compact('posts'));
+		} catch(Exception $e) {
+			return redirect()->back();
+		}
+	}
+
 }
