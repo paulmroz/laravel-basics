@@ -13,6 +13,7 @@
             </p>
             {{$post->body}}
 
+
             @if((Auth::check()) && ($post->user->id == Auth::id()))
             <form  method="POST" action="/delete/{{$post->id}}">
                   {{ csrf_field() }}
@@ -21,3 +22,4 @@
             </form>
             @endif
 </div>
+
