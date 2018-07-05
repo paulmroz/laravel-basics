@@ -10,18 +10,17 @@ class RegistrationController extends Controller
 {
     public function create()
     {
-    	return view('registration.create');
+        return view('registration.create');
     }
 
     public function store(RegistrationForm $form)
     {
-    	
-    	$form->persist();
+        $form->persist();
 
         session()->flash('message', 'Thanks so much for signing up');
 
-    	//Redirect to the home page
+        //Redirect to the home page
 
-    	return redirect()->home();
+        return redirect()->home();
     }
 }

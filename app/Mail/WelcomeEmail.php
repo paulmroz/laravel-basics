@@ -11,7 +11,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class WelcomeEmail extends Mailable
 {
-
     public $user;
 
     use Queueable, SerializesModels;

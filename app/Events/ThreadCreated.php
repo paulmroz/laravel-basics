@@ -22,7 +22,7 @@ class ThreadCreated
      */
     public function __construct($thread)
     {
-        $this->thread= $thread; 
+        $this->thread= $thread;
     }
 
     /**

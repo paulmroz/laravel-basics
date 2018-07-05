@@ -1,15 +1,15 @@
 <?php
-Route::get('/','PostsController@index')->name('home');
+Route::get('/', 'PostsController@index')->name('home');
 
-Route::get('/posts/create','PostsController@create');
+Route::get('/posts/create', 'PostsController@create');
 
-Route::delete('/delete/{post}','PostsController@destroy'); 
+Route::delete('/delete/{post}', 'PostsController@destroy');
 
-Route::get('/posts/{post}','PostsController@show');
+Route::get('/posts/{post}', 'PostsController@show');
 
-Route::get('/myposts','PostsController@userposts');
+Route::get('/myposts', 'PostsController@userposts');
 
-Route::post('/posts','PostsController@store');
+Route::post('/posts', 'PostsController@store');
 
 Route::post('/posts/{post}/comments', 'CommentsController@store');
 
@@ -28,4 +28,3 @@ Route::get('/logout', 'SessionsController@destroy');
 //Lesson 24 The Service Container
 
 //dd(resolve('App\Billing\Stripe'));
-	

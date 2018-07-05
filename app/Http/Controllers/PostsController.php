@@ -10,94 +10,86 @@ use Carbon\Carbon;
 
 class PostsController extends Controller
 {
-	public function __construct()
-	{
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
 
-		$this->middleware('auth')->except(['index', 'show']);
+    public function index()
+    {
+        $posts = Post::latest();
 
-	}
+        if (request(['month', 'year'])) {
+            $posts->filter(request(['month', 'year']));
+        }
+        
+        $posts = $posts->paginate(5);
 
-	public function index()
-	{
+        return view('posts.index', compact('posts'));
+    }
 
-		$posts = Post::latest();
-
-		if (request(['month', 'year'])) {
-
-		    $posts->filter(request(['month', 'year']));
-
-		} 
-		
-		$posts = $posts->paginate(5);
-
-		return view('posts.index', compact('posts'));
-	}
-
-	public function show(Post $post)
-	{
-		return view('posts.show', compact('post'));
-	}
+    public function show(Post $post)
+    {
+        return view('posts.show', compact('post'));
+    }
 
 
 
 
-	public function create()
-	{
-		return view('posts.create');
-	}
+    public function create()
+    {
+        return view('posts.create');
+    }
 
 
 
-	public function store()
-	{
-		
+    public function store()
+    {
+        $this->validate(request(), [
 
-			$this->validate(request(),[
+                'title'=>'required',
+                'body'=>'required'
 
-				'title'=>'required',
-				'body'=>'required'
+            ]);
 
-			]);
+        auth()->user()->publish(
+                new Post(request(['title','body']))
+            );
 
-			auth()->user()->publish(
-				new Post(request(['title','body']))
-			);
+        session()->flash('message', 'Your post has been published');
 
-			session()->flash('message', 'Your post has been published');
+        /*Post::create([
 
-		/*Post::create([
+            'title' =>request('title'),
+            'body' =>request('body'),
+            'user_id' =>auth()->id()
 
-			'title' =>request('title'),
-			'body' =>request('body'),
-			'user_id' =>auth()->id()	
+        ]);*/
+        //redirect to homepage
+        return redirect('/');
+    }
+    
 
-		]);*/
-		//redirect to homepage
-		return redirect('/');
-	}
-	
+    public function destroy(Post $post)
+    {
+        if ($post->user->id == auth()->id()) {
+            $post->find($post->id);
+            $post->delete();
 
-	public function destroy(Post $post)
-	{	
-		if ($post->user->id == auth()->id()) {
-			$post->find($post->id);
-			$post->delete();
+            session()->flash('message', 'Your post has been successfully deleted');
+        }
+        
+        return redirect()->back();
+    }
 
-			session()->flash('message', 'Your post has been successfully deleted');
-		}
-		
-		return redirect()->back();
-	}
+    public function userposts()
+    {
+        try {
+            $posts = Post::where('user_id', auth()->id())->get();
 
-	public function userposts(){
-		try {
-			
-		$posts = Post::where('user_id',auth()->id())->get();	
-
-		return view('posts.userposts', compact('posts'));
-		} catch(Exception $e) {
-			return redirect()->back();
-		}
-	}
-
+            return view('posts.userposts', compact('posts'));
+        } catch (Exception $e) {
+            return redirect()->back();
+        }
+    }
 }

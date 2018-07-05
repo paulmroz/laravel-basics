@@ -29,7 +29,7 @@ class RegistrationForm extends FormRequest
      */
     public function rules()
     {
-            //validate the form
+        //validate the form
         return [
             'name'=> 'required',
             'email' => 'required|email',
@@ -40,7 +40,7 @@ class RegistrationForm extends FormRequest
     public function persist()
     {
         //Create the user
-        $user = User::create([ 
+        $user = User::create([
             'name' => request('name'),
             'email' => request('email'),
             'password' => bcrypt(request('password'))

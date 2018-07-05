@@ -2,12 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Post;	
+use App\Post;
 
-class Posts 
+class Posts
 {
-	public function all()
-	{
-		return Post::all();
-	}
+    public function all()
+    {
+        return Post::all();
+    }
 }
